@@ -2,7 +2,10 @@
 
 @section('content')
     <div class="flex items-center justify-between mb-6">
-        <h1 class="text-xl font-semibold">Manajemen Mata Pelajaran</h1>
+        <div class="flex items-center gap-3">
+            <x-button variant="secondary" type="button" onclick="location.href='{{ route('dashboard') }}'">Kembali</x-button>
+            <h1 class="text-xl font-semibold">Manajemen Mata Pelajaran</h1>
+        </div>
         <x-button variant="primary" type="button" onclick="location.href='{{ route('admin.mapel.create') }}'">Tambah Mapel</x-button>
     </div>
 

@@ -6,6 +6,7 @@
     <title>@yield('title', 'Sistem Akademik')</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
     @vite('resources/css/app.css')
 </head>
 <body class="bg-white text-slate-900 font-sans">
