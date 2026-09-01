@@ -21,7 +21,8 @@ Route::middleware(['auth'])->group(function () {
 
   Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
-    Route::resource('kelas', \App\Http\Controllers\Admin\KelasController::class);
+    Route::resource('kelas', \App\Http\Controllers\Admin\KelasController::class)
+    ->parameters(['kelas' => 'kelas']);
     Route::resource('mapel', \App\Http\Controllers\Admin\MapelController::class);
     Route::resource('mengajar', \App\Http\Controllers\Admin\MengajarController::class);
     Route::resource('jadwal', \App\Http\Controllers\Admin\JadwalController::class);

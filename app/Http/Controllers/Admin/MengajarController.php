@@ -35,6 +35,19 @@ class MengajarController extends Controller
             'semester' => 'required|string|max:255',
         ]);
 
+        $exists = Mengajar::where('guru_id', $request->guru_id)
+            ->where('mapel_id', $request->mapel_id)
+            ->where('kelas_id', $request->kelas_id)
+            ->where('semester', $request->semester)
+            ->where('tahun_ajaran', $request->tahun_ajaran)
+            ->exists();
+
+        if ($exists) {
+            return back()->withErrors([
+                'guru_id' => 'Kombinasi guru, mapel, kelas, semester, dan tahun ajaran sudah ada.'
+            ]);
+        }
+
         Mengajar::create($request->all());
 
         return redirect()->route('admin.mengajar.index')->with('success', 'Data mengajar berhasil ditambahkan.');
@@ -57,6 +70,20 @@ class MengajarController extends Controller
             'tahun_ajaran' => 'required|string|max:255',
             'semester' => 'required|string|max:255',
         ]);
+
+        $exists = Mengajar::where('guru_id', $request->guru_id)
+            ->where('mapel_id', $request->mapel_id)
+            ->where('kelas_id', $request->kelas_id)
+            ->where('semester', $request->semester)
+            ->where('tahun_ajaran', $request->tahun_ajaran)
+            ->where('id', '!=', $mengajar->id)
+            ->exists();
+
+        if ($exists) {
+            return back()->withErrors([
+                'guru_id' => 'Kombinasi guru, mapel, kelas, semester, dan tahun ajaran sudah ada.'
+            ]);
+        }
 
         $mengajar->update($request->all());
 
