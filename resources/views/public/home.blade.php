@@ -158,7 +158,7 @@
                 </div>
                 <h3 class="mt-4 font-semibold leading-tight">{{ $p['name'] }}</h3>
                 <p class="text-sm text-slate-500 mt-1 leading-relaxed min-h-[42px]">{{ $p['desc'] }}</p>
-                <a href="{{ route('public.programs') }}" class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-accent group-hover:gap-2 transition-all">Pelajari <i class="ti ti-arrow-right text-xs"></i></a>
+                <a href="{{ route('public.programs.show', $p['code']) }}" class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-accent group-hover:gap-2 transition-all">Lihat Detail <i class="ti ti-arrow-right text-xs"></i></a>
             </div>
             @endforeach
         </div>

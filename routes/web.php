@@ -8,6 +8,7 @@ use App\Http\Controllers\PublicController;
 Route::get('/', [PublicController::class, 'home'])->name('public.home');
 Route::get('/tentang', [PublicController::class, 'about'])->name('public.about');
 Route::get('/program-keahlian', [PublicController::class, 'programs'])->name('public.programs');
+Route::get('/program-keahlian/{code}', [PublicController::class, 'programShow'])->name('public.programs.show');
 Route::get('/fasilitas', [PublicController::class, 'facilities'])->name('public.facilities');
 Route::get('/berita', [PublicController::class, 'news'])->name('public.news');
 Route::get('/kontak', [PublicController::class, 'contact'])->name('public.contact');

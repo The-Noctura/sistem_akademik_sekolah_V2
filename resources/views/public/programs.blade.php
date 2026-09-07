@@ -53,7 +53,7 @@
                         @endforeach
                     </ul>
                     <div class="mt-5">
-                        <a href="{{ route('public.contact') }}" class="w-full text-center px-3 py-2 rounded-xl bg-accent text-white text-sm font-medium">Daftar</a>
+                        <a href="{{ route('public.programs.show', $p['code']) }}" class="block w-full text-center px-3 py-2 rounded-xl bg-accent text-white text-sm font-medium hover:bg-accent-hover transition">Lihat Detail</a>
                     </div>
                 </div>
             </div>
