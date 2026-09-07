@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="text-xl font-semibold mb-6">Nilai Saya</h1>
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-xl font-semibold">Nilai Saya</h1>
+        <x-button variant="secondary" type="button" onclick="location.href='{{ route('dashboard') }}'">Kembali</x-button>
+    </div>
 
     <div class="space-y-6">
         @forelse($dataPerMapel as $mapelNama => $data)

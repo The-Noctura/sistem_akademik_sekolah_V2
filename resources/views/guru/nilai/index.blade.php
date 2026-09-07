@@ -3,6 +3,7 @@
 @section('content')
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-xl font-semibold">Input Nilai</h1>
+        <x-button variant="secondary" type="button" onclick="location.href='{{ route('dashboard') }}'">Kembali</x-button>
     </div>
 
     <x-table>

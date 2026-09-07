@@ -10,7 +10,7 @@ class MapelController extends Controller
 {
     public function index()
     {
-        $mapel = Mapel::latest()->paginate(15);
+        $mapel = Mapel::aktif()->latest()->paginate(15);
         return view('admin.mapel.index', compact('mapel'));
     }
 
@@ -50,7 +50,7 @@ class MapelController extends Controller
 
     public function destroy(Mapel $mapel)
     {
-        $mapel->delete();
-        return redirect()->route('admin.mapel.index')->with('success', 'Mata pelajaran berhasil dihapus.');
+        $mapel->update(['status' => 'nonaktif']);
+        return redirect()->route('admin.mapel.index')->with('success', 'Mata pelajaran dinonaktifkan.');
     }
 }

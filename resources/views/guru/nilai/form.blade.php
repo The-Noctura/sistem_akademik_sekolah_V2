@@ -14,9 +14,9 @@
                 <label class="block text-sm font-medium mb-1">Jenis Nilai</label>
                 <select name="jenis" id="jenis"
                     class="w-full max-w-xs border rounded-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent-soft focus:border-accent border-slate-200">
-                    <option value="tugas">Tugas</option>
-                    <option value="uts">UTS</option>
-                    <option value="uas">UAS</option>
+                    <option value="tugas" {{ $jenis === 'tugas' ? 'selected' : '' }}>Tugas</option>
+                    <option value="uts" {{ $jenis === 'uts' ? 'selected' : '' }}>UTS</option>
+                    <option value="uas" {{ $jenis === 'uas' ? 'selected' : '' }}>UAS</option>
                 </select>
             </div>
 
@@ -39,7 +39,7 @@
                                     min="0"
                                     max="100"
                                     step="0.01"
-                                    value="{{ ${'nilai' . ucfirst($request->query('jenis', 'tugas'))}[$siswa->id] ?? ${'nilaiTugas'}[$siswa->id] ?? ${'nilaiUts'}[$siswa->id] ?? ${'nilaiUas'}[$siswa->id] ?? '' }}"
+                                    value="{{ ${'nilai' . ucfirst($jenis)}[$siswa->id] ?? '' }}"
                                     class="w-24 mx-auto border rounded-sm px-2 py-1 text-sm text-center focus:outline-none focus:ring-2 focus:ring-accent-soft focus:border-accent border-slate-200"
                                     required
                                 >

@@ -113,6 +113,8 @@ Dipakai untuk: `/dashboard` yang redirect ke tampilan sesuai role setelah login.
 
 Grid selalu 3 kolom di desktop (`md:grid-cols-3`), 1 kolom di mobile (default). **Jangan** ubah jadi 2 atau 4 kolom meski jumlah menu tidak habis dibagi 3 — biarkan baris terakhir tidak penuh, itu lebih baik daripada grid tidak konsisten antar halaman dashboard role berbeda.
 
+> **Catatan:** Dashboard Admin (`admin.dashboard`) boleh memakai variasi Pola 3 dengan stat cards (4 kotak) + menu cards (5 item) sesuai kebutuhan manajemen sekolah. Guru & Siswa tetap ikut Pola 3 standar (hanya x-dashboard-link).
+
 ---
 
 ## Pola 4 — Halaman Detail/Lihat (Read-Only untuk Siswa)

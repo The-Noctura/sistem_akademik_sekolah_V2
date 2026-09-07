@@ -3,7 +3,10 @@
 @section('content')
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-xl font-semibold">Manajemen Mengajar</h1>
-        <x-button variant="primary" type="button" onclick="location.href='{{ route('admin.mengajar.create') }}'">Tambah Mengajar</x-button>
+        <div class="flex gap-3">
+            <x-button variant="secondary" type="button" onclick="location.href='{{ route('dashboard') }}'">Kembali</x-button>
+            <x-button variant="primary" type="button" onclick="location.href='{{ route('admin.mengajar.create') }}'">Tambah Mengajar</x-button>
+        </div>
     </div>
 
     <x-table>

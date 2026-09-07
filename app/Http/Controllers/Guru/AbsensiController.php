@@ -51,6 +51,14 @@ class AbsensiController extends Controller
             abort(403, 'Anda tidak mengajar kelas ini.');
         }
 
+        // WAJIB: cross-check siswa-kelas SEBELUM masuk transaction
+        foreach (array_keys($request->status) as $siswaId) {
+            $siswa = Siswa::find($siswaId);
+            if (!$siswa || $siswa->kelas_id !== $mengajar->kelas_id) {
+                return back()->withErrors(['error' => 'Ada siswa yang tidak sesuai kelas.']);
+            }
+        }
+
         DB::beginTransaction();
         try {
             foreach ($request->status as $siswaId => $status) {

@@ -4,19 +4,27 @@
     <h1 class="text-xl font-semibold mb-6">Edit User</h1>
 
     <x-card>
-        <form method="POST" action="{{ route('admin.users.update', $user) }}">
+        <form method="POST" action="{{ route('admin.users.update', $user) }}" x-data="{ password: '', confirmPassword: '' }">
             @csrf
             @method('PUT')
 
             <x-form-input name="nama" label="Nama" :value="$user->nama" />
             <x-form-input name="email" label="Email" type="email" :value="$user->email" />
-            <x-form-input name="password" label="Password (kosongkan jika tidak diubah)" type="password" />
-            <x-form-input name="password_confirmation" label="Konfirmasi Password" type="password" />
+            <x-form-input name="password" label="Password (kosongkan jika tidak diubah)" type="password" x-model="password" />
+            <x-form-input name="password_confirmation" label="Konfirmasi Password" type="password" x-model="confirmPassword" />
+            <div x-show="confirmPassword.length > 0" class="mt-1 flex items-center gap-2" x-transition>
+                <span x-show="password === confirmPassword" class="text-emerald-600 text-sm flex items-center gap-1">
+                    <i class="ti ti-check text-base"></i> Password cocok
+                </span>
+                <span x-show="password !== confirmPassword" class="text-red-600 text-sm flex items-center gap-1">
+                    <i class="ti ti-x text-base"></i> Password tidak cocok
+                </span>
+            </div>
             <x-form-select name="role" label="Role" :options="['admin' => 'Admin', 'guru' => 'Guru', 'siswa' => 'Siswa']" :selected="$user->role" />
 
             <div class="flex justify-end gap-3 mt-6">
                 <x-button variant="secondary" type="button" onclick="history.back()">Batal</x-button>
-                <x-button variant="primary" type="submit">Simpan</x-button>
+                <x-button variant="primary" type="submit" x-bind:disabled="confirmPassword.length > 0 && password !== confirmPassword">Simpan</x-button>
             </div>
         </form>
     </x-card>

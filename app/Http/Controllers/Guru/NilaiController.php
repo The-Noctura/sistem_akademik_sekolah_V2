@@ -22,7 +22,7 @@ class NilaiController extends Controller
         return view('guru.nilai.index', compact('mengajarList'));
     }
 
-    public function form($mengajarId)
+    public function form($mengajarId, Request $request)
     {
         $mengajar = Mengajar::with(['mapel', 'kelas.siswa'])->findOrFail($mengajarId);
 
@@ -32,6 +32,8 @@ class NilaiController extends Controller
         }
 
         $siswaList = Siswa::where('kelas_id', $mengajar->kelas_id)->get();
+
+        $jenis = $request->query('jenis', 'tugas');
 
         $nilaiTugas = Nilai::where('mengajar_id', $mengajarId)
             ->where('jenis', 'tugas')
@@ -53,7 +55,8 @@ class NilaiController extends Controller
             'siswaList',
             'nilaiTugas',
             'nilaiUts',
-            'nilaiUas'
+            'nilaiUas',
+            'jenis'
         ));
     }
 

@@ -8,8 +8,13 @@ class Mapel extends Model
 {
     protected $table = 'mapel';
     
-    protected $fillable = ['nama_mapel', 'kode_mapel'];
-    
+    protected $fillable = ['nama_mapel', 'kode_mapel', 'status'];
+
+    public function scopeAktif($query)
+    {
+        return $query->where('status', 'aktif');
+    }
+
     public function mengajar()
     {
         return $this->hasMany(Mengajar::class);

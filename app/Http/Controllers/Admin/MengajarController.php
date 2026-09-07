@@ -8,6 +8,7 @@ use App\Models\Guru;
 use App\Models\Mapel;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class MengajarController extends Controller
 {
@@ -28,11 +29,21 @@ class MengajarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'guru_id' => 'required|exists:guru,id',
+            'guru_id' => [
+                'required',
+                'exists:guru,id',
+                Rule::unique('mengajar')
+                    ->where(fn ($q) => $q->where('mapel_id', $request->mapel_id)
+                                          ->where('kelas_id', $request->kelas_id)
+                                          ->where('tahun_ajaran', $request->tahun_ajaran)
+                                          ->where('semester', $request->semester)),
+            ],
             'mapel_id' => 'required|exists:mapel,id',
             'kelas_id' => 'required|exists:kelas,id',
             'tahun_ajaran' => 'required|string|max:255',
             'semester' => 'required|string|max:255',
+        ], [
+            'guru_id.unique' => 'Kombinasi guru, mata pelajaran, kelas, tahun ajaran, dan semester sudah ada.',
         ]);
 
         Mengajar::create($request->all());
@@ -51,11 +62,22 @@ class MengajarController extends Controller
     public function update(Request $request, Mengajar $mengajar)
     {
         $request->validate([
-            'guru_id' => 'required|exists:guru,id',
+            'guru_id' => [
+                'required',
+                'exists:guru,id',
+                Rule::unique('mengajar')
+                    ->where(fn ($q) => $q->where('mapel_id', $request->mapel_id)
+                                          ->where('kelas_id', $request->kelas_id)
+                                          ->where('tahun_ajaran', $request->tahun_ajaran)
+                                          ->where('semester', $request->semester))
+                    ->ignore($mengajar->id),
+            ],
             'mapel_id' => 'required|exists:mapel,id',
             'kelas_id' => 'required|exists:kelas,id',
             'tahun_ajaran' => 'required|string|max:255',
             'semester' => 'required|string|max:255',
+        ], [
+            'guru_id.unique' => 'Kombinasi guru, mata pelajaran, kelas, tahun ajaran, dan semester sudah ada.',
         ]);
 
         $mengajar->update($request->all());

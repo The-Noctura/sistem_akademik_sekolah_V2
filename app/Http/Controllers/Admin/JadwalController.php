@@ -32,6 +32,10 @@ class JadwalController extends Controller
             'ruangan' => 'required|string|max:255',
         ]);
 
+        if ($response = $this->checkScheduleConflict($request, null)) {
+            return $response;
+        }
+
         Jadwal::create($request->all());
 
         return redirect()->route('admin.jadwal.index')->with('success', 'Jadwal berhasil ditambahkan.');
@@ -54,6 +58,10 @@ class JadwalController extends Controller
             'ruangan' => 'required|string|max:255',
         ]);
 
+        if ($response = $this->checkScheduleConflict($request, $jadwal->id)) {
+            return $response;
+        }
+
         $jadwal->update($request->all());
 
         return redirect()->route('admin.jadwal.index')->with('success', 'Jadwal berhasil diupdate.');
@@ -63,5 +71,43 @@ class JadwalController extends Controller
     {
         $jadwal->delete();
         return redirect()->route('admin.jadwal.index')->with('success', 'Jadwal berhasil dihapus.');
+    }
+
+    private function checkScheduleConflict(Request $request, ?int $ignoreId = null)
+    {
+        $mengajar = Mengajar::findOrFail($request->mengajar_id);
+        $guruId = $mengajar->guru_id;
+
+        // Cek bentrok guru
+        $guruConflict = Jadwal::whereHas('mengajar', fn($q) => $q->where('guru_id', $guruId))
+            ->where('hari', $request->hari)
+            ->where(function ($q) use ($request) {
+                $q->where('jam_mulai', '<', $request->jam_selesai)
+                  ->where('jam_selesai', '>', $request->jam_mulai);
+            })
+            ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
+            ->exists();
+
+        if ($guruConflict) {
+            return back()->withErrors([
+                'error' => 'Guru sudah memiliki jadwal lain yang bentrok di hari dan jam ini.'
+            ])->withInput();
+        }
+
+        // Cek bentrok ruangan
+        $ruanganConflict = Jadwal::where('ruangan', $request->ruangan)
+            ->where('hari', $request->hari)
+            ->where(function ($q) use ($request) {
+                $q->where('jam_mulai', '<', $request->jam_selesai)
+                  ->where('jam_selesai', '>', $request->jam_mulai);
+            })
+            ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
+            ->exists();
+
+        if ($ruanganConflict) {
+            return back()->withErrors([
+                'error' => 'Ruangan sudah digunakan oleh jadwal lain yang bentrok di hari dan jam ini.'
+            ])->withInput();
+        }
     }
 }

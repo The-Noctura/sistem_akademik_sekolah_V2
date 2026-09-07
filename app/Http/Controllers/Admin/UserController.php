@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::latest()->paginate(15);
+        $users = User::aktif()->latest()->paginate(15);
         return view('admin.users.index', compact('users'));
     }
 
@@ -70,7 +70,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('admin.users.index')->with('success', 'User berhasil dihapus.');
+        $user->update(['status' => 'nonaktif']);
+        return redirect()->route('admin.users.index')->with('success', 'User dinonaktifkan.');
     }
 }
