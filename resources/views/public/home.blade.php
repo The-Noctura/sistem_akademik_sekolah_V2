@@ -34,10 +34,10 @@
             </div>
             <div class="relative">
                 <div class="rounded-[28px] overflow-hidden shadow-2xl border border-white/20 bg-white">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=900" alt="SMKN 1 Katapang" class="w-full h-[420px] object-cover">
+                    <img src="/images/lapang.webp" alt="SMKN 1 Katapang - Lapangan" class="w-full h-[420px] object-cover">
                     <div class="p-4 flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <img src="https://ui-avatars.com/api/?name=SMKN+1+Katapang&background=2563EB&color=fff" class="w-10 h-10 rounded-xl">
+                            <img src="/images/logo_katapang-removebg-preview.png" class="w-10 h-10 rounded-xl object-cover" alt="Logo SMKN 1 Katapang">
                             <div>
                                 <div class="text-sm font-semibold text-slate-900">Kampus Vokasi Modern</div>
                                 <div class="text-xs text-slate-500">Jl. Ceuri Kopo KM 13.5</div>
@@ -120,22 +120,22 @@
     <div class="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent"></div>
     <div class="max-w-7xl mx-auto px-4 relative grid lg:grid-cols-3 gap-8 items-center">
         <div class="lg:col-span-1">
-            <div class="rounded-3xl overflow-hidden border border-white/20">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600" alt="Kepala Sekolah" class="w-full h-[380px] object-cover">
-            </div>
+                <div class="rounded-3xl overflow-hidden border border-white/20">
+                	<img src="/images/kepsek.png" alt="Kepala Sekolah Hendra Hermansah" class="w-full h-[380px] object-cover">
+                </div>
         </div>
         <div class="lg:col-span-2">
             <div class="text-accent font-semibold text-xs tracking-widest">SAMBUTAN KEPALA SEKOLAH</div>
             <h3 class="text-2xl md:text-3xl font-bold mt-2 leading-tight">Mewujudkan Lulusan Kompeten, Berkarakter & Siap Bersaing di Era Industri 4.0</h3>
             <p class="mt-4 text-slate-300 leading-relaxed">SMKN 1 Katapang berkomitmen menghadirkan pendidikan vokasi berkualitas dengan penguatan soft skills, praktik industri, dan pembelajaran berbasis proyek. Kami menggandeng dunia usaha agar kompetensi siswa relevan dengan kebutuhan kerja nyata.</p>
             <p class="mt-3 text-slate-300 leading-relaxed">Dengan 9 pilihan kompetensi dan fasilitas modern, siswa dibimbing untuk berprestasi akademik, beretika, dan mandiri sesuai Profil Pelajar Pancasila.</p>
-            <div class="mt-6 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-white text-slate-900 flex items-center justify-center font-bold">HH</div>
-                <div>
-                    <div class="font-semibold">Hendra Hermansah, S.Pd., M.M.</div>
-                    <div class="text-xs text-slate-400">Kepala SMKN 1 Katapang</div>
+                <div class="mt-6 flex items-center gap-3">
+                	<img src="/images/kepsek.png" class="w-10 h-10 rounded-full object-cover" alt="Hendra Hermansah">
+                	<div>
+                		<div class="font-semibold">Hendra Hermansah, S.Pd., M.M.</div>
+                		<div class="text-xs text-slate-400">Kepala SMKN 1 Katapang</div>
+                	</div>
                 </div>
-            </div>
         </div>
     </div>
 </section>

@@ -52,9 +52,8 @@
                         <li class="flex gap-1.5"><i class="ti ti-check text-emerald-500 mt-0.5"></i> {{ $d }}</li>
                         @endforeach
                     </ul>
-                    <div class="mt-5 flex gap-2">
-                        <a href="{{ route('public.contact') }}" class="flex-1 text-center px-3 py-2 rounded-xl bg-accent text-white text-sm font-medium">Daftar</a>
-                        <a href="#" class="px-3 py-2 rounded-xl border text-sm">Kurikulum</a>
+                    <div class="mt-5">
+                        <a href="{{ route('public.contact') }}" class="w-full text-center px-3 py-2 rounded-xl bg-accent text-white text-sm font-medium">Daftar</a>
                     </div>
                 </div>
             </div>

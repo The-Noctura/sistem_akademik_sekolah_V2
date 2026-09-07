@@ -11,26 +11,14 @@
     @vite('resources/css/app.css')
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased">
-    {{-- Topbar --}}
-    <div class="bg-slate-900 text-slate-300 text-xs">
-        <div class="max-w-7xl mx-auto px-4 h-9 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <span class="flex items-center gap-1.5"><i class="ti ti-map-pin text-sm"></i> Jl. Ceuri Terusan Kopo KM 13.5, Katapang - Kab. Bandung 40921</span>
-                <span class="hidden md:flex items-center gap-1.5"><i class="ti ti-phone text-sm"></i> 022-5893737</span>
-            </div>
-            <div class="flex items-center gap-3">
-                <span class="hidden sm:inline">NPSN 20206214 • Akreditasi A • ISO 9001:2008</span>
-                <a href="mailto:smkn1katapang@yahoo.co.id" class="hover:text-white">smkn1katapang@yahoo.co.id</a>
-            </div>
-        </div>
-    </div>
+    {{-- Topbar removed per design request --}}
 
     {{-- Navbar --}}
     <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 h-[72px] flex items-center justify-between">
             <a href="{{ route('public.home') }}" class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-white">
-                    <i class="ti ti-school text-xl"></i>
+                <div class="w-10 h-10 rounded-xl overflow-hidden">
+                    <img src="/images/logo_katapang-removebg-preview.png" alt="SMKN 1 Katapang" class="w-full h-full object-cover">
                 </div>
                 <div class="leading-tight">
                     <div class="font-bold text-[15px] tracking-tight" style="font-family: Plus Jakarta Sans, sans-serif">SMKN 1 KATAPANG</div>
