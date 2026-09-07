@@ -5,9 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
 
 
-Route::get('/', function () {
-  return view('welcome');
-});
 Route::get('/', [PublicController::class, 'home'])->name('public.home');
 Route::get('/tentang', [PublicController::class, 'about'])->name('public.about');
 Route::get('/program-keahlian', [PublicController::class, 'programs'])->name('public.programs');
