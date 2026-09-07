@@ -101,7 +101,7 @@
                 </div>
                 <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
                     <h4 class="text-white font-semibold">PPDB 2025/2026</h4>
-                    <p class="text-sm text-slate-400 mt-1">Pendaftaran 17 rombel untuk 9 kompetensi. Jurusan favorit: TKRO, TKJ, RPL, Multimedia.</p>
+                    <p class="text-sm text-slate-400 mt-1">Pendaftaran 17 rombel untuk 9 kompetensi. Jurusan favorit: TKRO, TKJ, RPL, Broadcasting Perfilman.</p>
                     <a href="{{ route('public.contact') }}" class="mt-3 inline-flex w-full justify-center px-4 py-2 rounded-xl bg-accent text-white text-sm font-medium">Hubungi Panitia PPDB</a>
                     <p class="text-xs text-slate-500 mt-2">Kepala Sekolah: Hendra Hermansah, S.Pd., M.M.</p>
                 </div>

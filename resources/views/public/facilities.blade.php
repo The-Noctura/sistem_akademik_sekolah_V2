@@ -18,7 +18,7 @@
                     ['Bengkel TKRO','ti-car','Lift, engine trainer, diagnostic tool'],
                     ['Lab Elektronika & Mekatronika','ti-cpu','PLC, mikrokontroler, robotik'],
                     ['Workshop Pemesinan','ti-settings','Mesin bubut, milling, CNC'],
-                    ['Studio Multimedia','ti-photo','Kamera, lighting, editing suite'],
+                    ['Studio Broadcasting & Perfilman','ti-movie','Kamera cinema, lighting, editing suite'],
                     ['Lab Tekstil','ti-shirt','Mesin penyempurnaan & QC'],
                     ['Perpustakaan','ti-books','Koleksi teknik & digital'],
                     ['Lapangan & Sport','ti-ball-football','Futsal, basket, upacara'],
@@ -38,7 +38,7 @@
                 <img src="https://images.unsplash.com/photo-1588075592446-265fd1e6e76f?w=800" class="w-full h-56 object-cover">
                 <div class="p-6">
                     <h3 class="font-bold">Praktik Kerja Industri (PKL)</h3>
-                    <p class="text-sm text-slate-600 mt-2">Kelas XI melaksanakan PKL 6 bulan di industri mitra (PT Pindad, PT LEN Industri, AHASS Honda, perusahaan tekstil & IT). Pembimbing industri + guru pendamping.</p>
+                    <p class="text-sm text-slate-600 mt-2">Kelas XII melaksanakan PKL 4 bulan di industri mitra (PT Pindad, PT LEN Industri, AHASS Honda, perusahaan tekstil & IT). Pembimbing industri + guru pendamping.</p>
                 </div>
             </div>
             <div class="rounded-2xl border p-6 bg-slate-50">

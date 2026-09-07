@@ -18,7 +18,7 @@
             <span class="px-3 py-1 rounded-full bg-white border text-xs">Teknik Tekstil : 68 siswa</span>
             <span class="px-3 py-1 rounded-full bg-white border text-xs">PPLG : 72 siswa</span>
             <span class="px-3 py-1 rounded-full bg-white border text-xs">TJKT : 71 siswa</span>
-            <span class="px-3 py-1 rounded-full bg-white border text-xs">Broadcasting : 68 siswa</span>
+            <span class="px-3 py-1 rounded-full bg-white border text-xs">Broadcasting Perfilman : 68 siswa</span>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -44,7 +44,7 @@
                             'TEKS'=> ['Pencelupan & Printing','Quality Control','Manajemen Produksi'],
                             'TKJ'=> ['Fiber Optic & Mikrotik','Server & Cloud','Cyber Security'],
                             'RPL'=> ['Web & Mobile Dev','Database & API','UI/UX'],
-                            'MM'=> ['Desain Grafis','Videografi & Animasi','Broadcasting'],
+                            'MM'=> ['Produksi Film & Sinematografi','Broadcasting & Editing','Animasi & Visual Effect'],
                             'MKA'=> ['Robotika','Pneumatik & PLC','Automasi'],
                         ];
                         @endphp

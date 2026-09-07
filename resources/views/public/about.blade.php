@@ -20,7 +20,7 @@
                 <div class="mt-4 space-y-3 text-sm leading-relaxed text-slate-600">
                     <p>SMKN 1 Katapang didirikan pada tahun <b>1999</b> dengan nama awal <b>SMKN 4 Soreang</b>. Pendirian didukung dana proyek LOAN OECF dari Pemerintah Jepang untuk pembangunan Unit Gedung Baru (UGB).</p>
                     <p>Tahun pelajaran 1999/2000 menerima siswa baru untuk 3 program: Teknologi Penyempurnaan Tekstil, Teknik Elektro, dan Mesin Perkakas. Pada 2000/2001 menempati gedung baru di <b>Jl. Ceuri Terusan Kopo KM 13,5, Desa Katapang</b> dan berganti nama menjadi SMKN 4 Katapang, lalu resmi menjadi <b>SMKN 1 Katapang</b> akhir tahun 2000.</p>
-                    <p>Hari ini sekolah memiliki 740 siswa dibimbing 99 guru profesional dan telah mengantongi <b>Akreditasi A (31 Des 2018, No.1214/BAN-SM/SK/2018)</b> serta sertifikasi <b>ISO 9001:2008</b>.</p>
+                    <p>Hari ini sekolah memiliki 740 siswa dibimbing 99 guru profesional dan telah mengantongi <b>Akreditasi A (31 Des 2018, No.1214/BAN-SM/SK/2018)</b> dari Badan Akreditasi Nasional Sekolah/Madrasah (BAN-SM).</p>
                 </div>
                 <div class="mt-6 grid grid-cols-3 gap-3 text-center">
                     <div class="rounded-xl bg-slate-50 border p-3"><div class="text-lg font-bold">1999</div><div class="text-xs text-slate-500">Berdiri</div></div>
