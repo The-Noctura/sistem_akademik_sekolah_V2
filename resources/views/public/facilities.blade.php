@@ -35,7 +35,7 @@
 
         <div class="grid lg:grid-cols-2 gap-6">
             <div class="rounded-2xl border overflow-hidden bg-white">
-                <img src="https://images.unsplash.com/photo-1588075592446-265fd1e6e76f?w=800" class="w-full h-56 object-cover">
+                <img src="/images/pkl.jpeg" alt="Siswa PKL SMKN 1 Katapang" class="w-full h-56 object-cover">
                 <div class="p-6">
                     <h3 class="font-bold">Praktik Kerja Industri (PKL)</h3>
                     <p class="text-sm text-slate-600 mt-2">Kelas XII melaksanakan PKL 4 bulan di industri mitra (PT Pindad, PT LEN Industri, AHASS Honda, perusahaan tekstil & IT). Pembimbing industri + guru pendamping.</p>
