@@ -77,6 +77,7 @@ class JadwalController extends Controller
     {
         $mengajar = Mengajar::findOrFail($request->mengajar_id);
         $guruId = $mengajar->guru_id;
+        $kelasId = $mengajar->kelas_id;
 
         // Cek bentrok guru
         $guruConflict = Jadwal::whereHas('mengajar', fn($q) => $q->where('guru_id', $guruId))
@@ -91,6 +92,22 @@ class JadwalController extends Controller
         if ($guruConflict) {
             return back()->withErrors([
                 'error' => 'Guru sudah memiliki jadwal lain yang bentrok di hari dan jam ini.'
+            ])->withInput();
+        }
+
+        // Cek bentrok kelas
+        $kelasConflict = Jadwal::whereHas('mengajar', fn($q) => $q->where('kelas_id', $kelasId))
+            ->where('hari', $request->hari)
+            ->where(function ($q) use ($request) {
+                $q->where('jam_mulai', '<', $request->jam_selesai)
+                  ->where('jam_selesai', '>', $request->jam_mulai);
+            })
+            ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
+            ->exists();
+
+        if ($kelasConflict) {
+            return back()->withErrors([
+                'error' => 'Kelas ini sudah memiliki jadwal pelajaran lain yang bentrok di hari dan jam ini.'
             ])->withInput();
         }
 

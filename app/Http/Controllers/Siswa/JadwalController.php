@@ -12,7 +12,12 @@ class JadwalController extends Controller
 {
     public function index()
     {
-        $siswa = Auth::user()->siswa;
+        $siswa = Auth::user()?->siswa;
+
+        if (!$siswa) {
+            return view('siswa.jadwal.index', ['jadwal' => collect()]);
+        }
+
         $kelasId = $siswa->kelas_id;
 
         if (!$kelasId) {

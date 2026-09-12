@@ -14,7 +14,12 @@ class NilaiController extends Controller
 {
     public function index()
     {
-        $siswa = Auth::user()->siswa;
+        $siswa = Auth::user()?->siswa;
+
+        if (!$siswa) {
+            return view('siswa.nilai.index', ['dataPerMapel' => []]);
+        }
+
         $kelasId = $siswa->kelas_id;
 
         if (!$kelasId) {
@@ -52,7 +57,8 @@ class NilaiController extends Controller
 
             if (!$rataRata) {
                 $rataRata = DB::selectOne("SELECT fn_rata_rata_nilai(?, ?) as rata", [
-                    $siswa->id, $mengajar->id
+                    $siswa->id,
+                    $mengajar->id
                 ])->rata ?? 0;
             }
 

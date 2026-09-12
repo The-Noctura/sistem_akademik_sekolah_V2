@@ -14,7 +14,12 @@ class AbsensiController extends Controller
 {
     public function index()
     {
-        $guru = Auth::user()->guru;
+        $guru = Auth::user()?->guru;
+
+        if (!$guru) {
+            abort(403, 'Data guru belum tersedia.');
+        }
+
         $mengajarList = Mengajar::with(['mapel', 'kelas'])
             ->where('guru_id', $guru->id)
             ->get();
@@ -22,18 +27,27 @@ class AbsensiController extends Controller
         return view('guru.absensi.index', compact('mengajarList'));
     }
 
-    public function form($mengajarId)
+    public function form($mengajarId, Request $request)
     {
         $mengajar = Mengajar::with(['mapel', 'kelas.siswa'])->findOrFail($mengajarId);
 
-        $guru = Auth::user()->guru;
-        if ($mengajar->guru_id !== $guru->id) {
+        $guru = Auth::user()?->guru;
+        if (!$guru || $mengajar->guru_id !== $guru->id) {
             abort(403, 'Anda tidak mengajar kelas ini.');
         }
 
-        $siswaList = Siswa::where('kelas_id', $mengajar->kelas_id)->get();
+        $siswaList = Siswa::where('kelas_id', $mengajar->kelas_id)
+            ->orderBy('nama')
+            ->get();
 
-        return view('guru.absensi.form', compact('mengajar', 'siswaList'));
+        $tanggal = $request->query('tanggal', date('Y-m-d'));
+
+        $existingAbsensi = Absensi::where('mengajar_id', $mengajarId)
+            ->where('tanggal', $tanggal)
+            ->pluck('status', 'siswa_id')
+            ->toArray();
+
+        return view('guru.absensi.form', compact('mengajar', 'siswaList', 'tanggal', 'existingAbsensi'));
     }
 
     public function store(Request $request, $mengajarId)
@@ -46,12 +60,11 @@ class AbsensiController extends Controller
 
         $mengajar = Mengajar::findOrFail($mengajarId);
 
-        $guru = Auth::user()->guru;
-        if ($mengajar->guru_id !== $guru->id) {
+        $guru = Auth::user()?->guru;
+        if (!$guru || $mengajar->guru_id !== $guru->id) {
             abort(403, 'Anda tidak mengajar kelas ini.');
         }
 
-        // WAJIB: cross-check siswa-kelas SEBELUM masuk transaction
         foreach (array_keys($request->status) as $siswaId) {
             $siswa = Siswa::find($siswaId);
             if (!$siswa || $siswa->kelas_id !== $mengajar->kelas_id) {
@@ -62,18 +75,95 @@ class AbsensiController extends Controller
         DB::beginTransaction();
         try {
             foreach ($request->status as $siswaId => $status) {
-                Absensi::create([
-                    'siswa_id' => $siswaId,
-                    'mengajar_id' => $mengajarId,
-                    'tanggal' => $request->tanggal,
-                    'status' => $status,
+                Absensi::updateOrCreate(
+                    [
+                        'siswa_id' => $siswaId,
+                        'mengajar_id' => $mengajarId,
+                        'tanggal' => $request->tanggal,
+                    ],
+                    [
+                        'status' => $status,
+                    ]
+                );
+
+                DB::statement('CALL sp_rekap_absensi(?, ?, ?)', [
+                    $siswaId,
+                    $mengajarId,
+                    $mengajar->semester,
                 ]);
             }
+
             DB::commit();
-            return back()->with('success', 'Absensi berhasil disimpan.');
+
+            return redirect()->route('guru.absensi.history', $mengajarId)
+                ->with('success', 'Presensi tanggal ' . date('d/m/Y', strtotime($request->tanggal)) . ' berhasil disimpan.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => 'Gagal simpan absensi: ' . $e->getMessage()]);
+        }
+    }
+
+    public function history($mengajarId)
+    {
+        $mengajar = Mengajar::with(['mapel', 'kelas'])->findOrFail($mengajarId);
+
+        $guru = Auth::user()?->guru;
+        if (!$guru || $mengajar->guru_id !== $guru->id) {
+            abort(403, 'Anda tidak mengajar kelas ini.');
+        }
+
+        // Riwayat absensi per tanggal dengan ringkasan
+        $history = Absensi::where('mengajar_id', $mengajarId)
+            ->select(
+                'tanggal',
+                DB::raw("SUM(status = 'hadir') as hadir"),
+                DB::raw("SUM(status = 'izin') as izin"),
+                DB::raw("SUM(status = 'sakit') as sakit"),
+                DB::raw("SUM(status = 'alpa') as alpa"),
+                DB::raw("COUNT(*) as total")
+            )
+            ->groupBy('tanggal')
+            ->orderBy('tanggal', 'desc')
+            ->paginate(15);
+
+        return view('guru.absensi.history', compact('mengajar', 'history'));
+    }
+
+    public function destroyDate($mengajarId, $tanggal)
+    {
+        $mengajar = Mengajar::findOrFail($mengajarId);
+
+        $guru = Auth::user()?->guru;
+        if (!$guru || $mengajar->guru_id !== $guru->id) {
+            abort(403, 'Anda tidak mengajar kelas ini.');
+        }
+
+        $siswaIds = Absensi::where('mengajar_id', $mengajarId)
+            ->where('tanggal', $tanggal)
+            ->pluck('siswa_id')
+            ->unique();
+
+        DB::beginTransaction();
+        try {
+            Absensi::where('mengajar_id', $mengajarId)
+                ->where('tanggal', $tanggal)
+                ->delete();
+
+            // Hitung ulang rekap absensi untuk siswa terkait
+            foreach ($siswaIds as $siswaId) {
+                DB::statement('CALL sp_rekap_absensi(?, ?, ?)', [
+                    $siswaId,
+                    $mengajarId,
+                    $mengajar->semester
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->route('guru.absensi.history', $mengajarId)
+                ->with('success', 'Data presensi tanggal ' . date('d/m/Y', strtotime($tanggal)) . ' berhasil dihapus.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => 'Gagal menghapus absensi: ' . $e->getMessage()]);
         }
     }
 }

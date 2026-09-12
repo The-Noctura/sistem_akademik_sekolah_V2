@@ -14,7 +14,12 @@ class AbsensiController extends Controller
 {
     public function index()
     {
-        $siswa = Auth::user()->siswa;
+        $siswa = Auth::user()?->siswa;
+
+        if (!$siswa) {
+            return view('siswa.absensi.index', ['dataPerMapel' => []]);
+        }
+
         $kelasId = $siswa->kelas_id;
 
         if (!$kelasId) {
@@ -41,7 +46,8 @@ class AbsensiController extends Controller
 
             if ($persentase === null) {
                 $persentase = DB::selectOne("SELECT fn_persentase_hadir(?, ?) as persentase", [
-                    $siswa->id, $mengajar->id
+                    $siswa->id,
+                    $mengajar->id
                 ])->persentase ?? 0;
             }
 
