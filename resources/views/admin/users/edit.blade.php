@@ -15,43 +15,31 @@
     </div>
 
     <x-card>
-        <form method="POST" action="{{ route('admin.users.update', $user) }}" x-data="{ password: '', confirmPassword: '' }">
-        <form method="POST" action="{{ route('admin.users.update', $user) }}"
-              x-data="{ 
-                  role: '{{ old('role', $user->role) }}', 
-                  password: '', 
-                  confirmPassword: '' 
-              }">
+        <form method="POST" action="{{ route('admin.users.update', $user) }}" x-data="{
+            role: '{{ old('role', $user->role) }}',
+            password: '',
+            confirmPassword: ''
+        }">
             @csrf
             @method('PUT')
 
-            <x-form-input name="nama" label="Nama" :value="$user->nama" />
-            <x-form-input name="email" label="Email" type="email" :value="$user->email" />
-            <x-form-input name="password" label="Password (kosongkan jika tidak diubah)" type="password" x-model="password" />
-            <x-form-input name="password_confirmation" label="Konfirmasi Password" type="password" x-model="confirmPassword" />
-            <div x-show="confirmPassword.length > 0" class="mt-1 flex items-center gap-2" x-transition>
-                <span x-show="password === confirmPassword" class="text-emerald-600 text-sm flex items-center gap-1">
-                    <i class="ti ti-check text-base"></i> Password cocok
-                </span>
-                <span x-show="password !== confirmPassword" class="text-red-600 text-sm flex items-center gap-1">
-                    <i class="ti ti-x text-base"></i> Password tidak cocok
-                </span>
             <div class="grid md:grid-cols-2 gap-4">
                 <x-form-input name="nama" label="Nama Lengkap" :value="old('nama', $user->nama)" required />
                 <x-form-input name="email" label="Alamat Email" type="email" :value="old('email', $user->email)" required />
             </div>
-            <x-form-select name="role" label="Role" :options="['admin' => 'Admin', 'guru' => 'Guru', 'siswa' => 'Siswa']" :selected="$user->role" />
-
-            <div class="flex justify-end gap-3 mt-6">
             <div class="grid md:grid-cols-2 gap-4">
-                <x-form-input name="password" label="Password Baru (Kosongkan jika tidak diubah)" type="password" x-model="password" />
+                <x-form-input name="password" label="Password Baru (Kosongkan jika tidak diubah)" type="password"
+                    x-model="password" />
                 <div>
-                    <x-form-input name="password_confirmation" label="Konfirmasi Password Baru" type="password" x-model="confirmPassword" />
+                    <x-form-input name="password_confirmation" label="Konfirmasi Password Baru" type="password"
+                        x-model="confirmPassword" />
                     <div x-show="confirmPassword.length > 0" class="mt-1 flex items-center gap-2 text-xs" x-transition>
-                        <span x-show="password === confirmPassword" class="text-emerald-600 flex items-center gap-1 font-medium">
+                        <span x-show="password === confirmPassword"
+                            class="text-emerald-600 flex items-center gap-1 font-medium">
                             <i class="ti ti-check"></i> Password cocok
                         </span>
-                        <span x-show="password !== confirmPassword" class="text-red-600 flex items-center gap-1 font-medium">
+                        <span x-show="password !== confirmPassword"
+                            class="text-red-600 flex items-center gap-1 font-medium">
                             <i class="ti ti-x"></i> Password tidak cocok
                         </span>
                     </div>
@@ -61,7 +49,8 @@
             <div class="grid md:grid-cols-2 gap-4 mb-5">
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Peran / Role</label>
-                    <select name="role" x-model="role" class="w-full rounded-lg border-slate-300 text-sm focus:ring-accent focus:border-accent">
+                    <select name="role" x-model="role"
+                        class="w-full rounded-lg border-slate-300 text-sm focus:ring-accent focus:border-accent">
                         <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Admin</option>
                         <option value="guru" {{ old('role', $user->role) === 'guru' ? 'selected' : '' }}>Guru</option>
                         <option value="siswa" {{ old('role', $user->role) === 'siswa' ? 'selected' : '' }}>Siswa</option>
@@ -69,26 +58,32 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Status Akun</label>
-                    <select name="status" class="w-full rounded-lg border-slate-300 text-sm focus:ring-accent focus:border-accent">
-                        <option value="aktif" {{ old('status', $user->status) === 'aktif' ? 'selected' : '' }}>Aktif</option>
-                        <option value="nonaktif" {{ old('status', $user->status) === 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                    <select name="status"
+                        class="w-full rounded-lg border-slate-300 text-sm focus:ring-accent focus:border-accent">
+                        <option value="aktif" {{ old('status', $user->status) === 'aktif' ? 'selected' : '' }}>Aktif
+                        </option>
+                        <option value="nonaktif" {{ old('status', $user->status) === 'nonaktif' ? 'selected' : '' }}>
+                            Nonaktif</option>
                     </select>
                 </div>
             </div>
 
             <!-- Bagian Khusus Guru -->
-            <div x-show="role === 'guru'" x-transition class="p-4 bg-accent-soft/40 border border-accent/20 rounded-xl mb-5">
+            <div x-show="role === 'guru'" x-transition
+                class="p-4 bg-accent-soft/40 border border-accent/20 rounded-xl mb-5">
                 <h3 class="font-semibold text-sm text-accent mb-3 flex items-center gap-1.5">
                     <i class="ti ti-id-badge-2 text-base"></i> Profil Tambahan Guru
                 </h3>
                 <div class="grid md:grid-cols-2 gap-4">
                     <x-form-input name="nip" label="NIP" :value="old('nip', $user->guru?->nip)" placeholder="Misal: 198501012010011001" />
-                    <x-form-input name="no_hp" label="No. Handphone / WhatsApp" :value="old('no_hp', $user->guru?->no_hp)" placeholder="08xxxxxxxxxx" />
+                    <x-form-input name="no_hp" label="No. Handphone / WhatsApp" :value="old('no_hp', $user->guru?->no_hp)"
+                        placeholder="08xxxxxxxxxx" />
                 </div>
             </div>
 
             <!-- Bagian Khusus Siswa -->
-            <div x-show="role === 'siswa'" x-transition class="p-4 bg-emerald-50/60 border border-emerald-200 rounded-xl mb-5">
+            <div x-show="role === 'siswa'" x-transition
+                class="p-4 bg-emerald-50/60 border border-emerald-200 rounded-xl mb-5">
                 <h3 class="font-semibold text-sm text-emerald-800 mb-3 flex items-center gap-1.5">
                     <i class="ti ti-school text-base"></i> Profil Akademik Siswa
                 </h3>
@@ -96,10 +91,13 @@
                     <x-form-input name="nis" label="NIS" :value="old('nis', $user->siswa?->nis)" placeholder="Misal: 20261001" />
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-slate-700 mb-1">Kelas Asal</label>
-                        <select name="kelas_id" class="w-full rounded-lg border-slate-300 text-sm focus:ring-emerald-500 focus:border-emerald-500">
+                        <select name="kelas_id"
+                            class="w-full rounded-lg border-slate-300 text-sm focus:ring-emerald-500 focus:border-emerald-500">
                             <option value="">-- Pilih Kelas --</option>
                             @foreach ($kelasList as $id => $namaKelas)
-                                <option value="{{ $id }}" {{ old('kelas_id', $user->siswa?->kelas_id) == $id ? 'selected' : '' }}>{{ $namaKelas }}</option>
+                                <option value="{{ $id }}"
+                                    {{ old('kelas_id', $user->siswa?->kelas_id) == $id ? 'selected' : '' }}>
+                                    {{ $namaKelas }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -107,9 +105,14 @@
                 <div class="grid md:grid-cols-2 gap-4">
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-slate-700 mb-1">Jenis Kelamin</label>
-                        <select name="jenis_kelamin" class="w-full rounded-lg border-slate-300 text-sm focus:ring-emerald-500 focus:border-emerald-500">
-                            <option value="L" {{ old('jenis_kelamin', $user->siswa?->jenis_kelamin ?? 'L') === 'L' ? 'selected' : '' }}>Laki-laki (L)</option>
-                            <option value="P" {{ old('jenis_kelamin', $user->siswa?->jenis_kelamin) === 'P' ? 'selected' : '' }}>Perempuan (P)</option>
+                        <select name="jenis_kelamin"
+                            class="w-full rounded-lg border-slate-300 text-sm focus:ring-emerald-500 focus:border-emerald-500">
+                            <option value="L"
+                                {{ old('jenis_kelamin', $user->siswa?->jenis_kelamin ?? 'L') === 'L' ? 'selected' : '' }}>
+                                Laki-laki (L)</option>
+                            <option value="P"
+                                {{ old('jenis_kelamin', $user->siswa?->jenis_kelamin) === 'P' ? 'selected' : '' }}>
+                                Perempuan (P)</option>
                         </select>
                     </div>
                     <x-form-input name="tanggal_lahir" label="Tanggal Lahir" type="date" :value="old('tanggal_lahir', $user->siswa?->tanggal_lahir)" />
@@ -118,8 +121,8 @@
 
             <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-slate-100">
                 <x-button variant="secondary" type="button" onclick="history.back()">Batal</x-button>
-                <x-button variant="primary" type="submit" x-bind:disabled="confirmPassword.length > 0 && password !== confirmPassword">Simpan</x-button>
-                <x-button variant="primary" type="submit">
+                <x-button variant="primary" type="submit"
+                    x-bind:disabled="confirmPassword.length > 0 && password !== confirmPassword">
                     <i class="ti ti-device-floppy mr-1"></i> Simpan Perubahan
                 </x-button>
             </div>
