@@ -37,7 +37,6 @@ class NilaiController extends Controller
             abort(403, 'Anda tidak mengajar kelas ini.');
         }
 
-        $siswaList = Siswa::where('kelas_id', $mengajar->kelas_id)->get();
         $siswaList = Siswa::where('kelas_id', $mengajar->kelas_id)->orderBy('nama')->get();
 
         $jenis = $request->query('jenis', 'tugas');
