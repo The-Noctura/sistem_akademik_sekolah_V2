@@ -86,6 +86,10 @@ class AbsensiController extends Controller
                     ]
                 );
 
+                // Manual call sp_rekap_absensi diperlukan karena:
+                // - Trigger trg_absensi_insert hanya AFTER INSERT, tidak ada AFTER UPDATE
+                // - updateOrCreate() bisa hasil UPDATE (edit absensi existing) → trigger tidak jalan
+                // - Prosedur idempoten (SELECT ulang + INSERT ... ON DUPLICATE KEY UPDATE) → panggilan ganda aman
                 DB::statement('CALL sp_rekap_absensi(?, ?, ?)', [
                     $siswaId,
                     $mengajarId,
@@ -150,6 +154,7 @@ class AbsensiController extends Controller
                 ->delete();
 
             // Hitung ulang rekap absensi untuk siswa terkait
+            // Manual call sp_rekap_absensi WAJIB karena tidak ada trigger AFTER DELETE pada tabel absensi
             foreach ($siswaIds as $siswaId) {
                 DB::statement('CALL sp_rekap_absensi(?, ?, ?)', [
                     $siswaId,
