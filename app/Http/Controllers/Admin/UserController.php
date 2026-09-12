@@ -16,14 +16,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::aktif()->latest()->paginate(15);
         $users = User::with(['guru', 'siswa.kelas'])->latest()->paginate(15);
         return view('admin.users.index', compact('users'));
     }
 
     public function create()
     {
-        return view('admin.users.create');
         $kelasList = Kelas::pluck('nama_kelas', 'id');
         return view('admin.users.create', compact('kelasList'));
     }
@@ -45,12 +43,6 @@ class UserController extends Controller
             'tanggal_lahir' => 'required_if:role,siswa|nullable|date',
         ]);
 
-        User::create([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-        ]);
         DB::beginTransaction();
         try {
             $user = User::create([
@@ -61,7 +53,6 @@ class UserController extends Controller
                 'status' => 'aktif',
             ]);
 
-        return redirect()->route('admin.users.index')->with('success', 'User berhasil ditambahkan.');
             if ($request->role === 'guru') {
                 Guru::create([
                     'user_id' => $user->id,
@@ -90,7 +81,6 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
         $user->load(['guru', 'siswa']);
         $kelasList = Kelas::pluck('nama_kelas', 'id');
         return view('admin.users.edit', compact('user', 'kelasList'));
@@ -129,11 +119,6 @@ class UserController extends Controller
             'tanggal_lahir' => 'required_if:role,siswa|nullable|date',
         ]);
 
-        $data = [
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'role' => $request->role,
-        ];
         DB::beginTransaction();
         try {
             $userData = [
@@ -143,17 +128,12 @@ class UserController extends Controller
                 'status' => $request->status,
             ];
 
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-        }
             if ($request->filled('password')) {
                 $userData['password'] = Hash::make($request->password);
             }
 
-        $user->update($data);
             $user->update($userData);
 
-        return redirect()->route('admin.users.index')->with('success', 'User berhasil diupdate.');
             if ($request->role === 'guru') {
                 Guru::updateOrCreate(
                     ['user_id' => $user->id],
@@ -186,8 +166,6 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->update(['status' => 'nonaktif']);
-        return redirect()->route('admin.users.index')->with('success', 'User dinonaktifkan.');
         $newStatus = $user->status === 'aktif' ? 'nonaktif' : 'aktif';
         $user->update(['status' => $newStatus]);
         $pesan = $newStatus === 'nonaktif' ? 'User berhasil dinonaktifkan.' : 'User berhasil diaktifkan kembali.';
