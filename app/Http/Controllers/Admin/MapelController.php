@@ -21,12 +21,12 @@ class MapelController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama_mapel' => 'required|string|max:255',
             'kode_mapel' => 'required|string|max:255',
         ]);
 
-        Mapel::create($request->all());
+        Mapel::create($validated);
 
         return redirect()->route('admin.mapel.index')->with('success', 'Mata pelajaran berhasil ditambahkan.');
     }
@@ -38,12 +38,12 @@ class MapelController extends Controller
 
     public function update(Request $request, Mapel $mapel)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama_mapel' => 'required|string|max:255',
             'kode_mapel' => 'required|string|max:255',
         ]);
 
-        $mapel->update($request->all());
+        $mapel->update($validated);
 
         return redirect()->route('admin.mapel.index')->with('success', 'Mata pelajaran berhasil diupdate.');
     }
