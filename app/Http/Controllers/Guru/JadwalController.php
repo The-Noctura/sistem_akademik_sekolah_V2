@@ -11,7 +11,12 @@ class JadwalController extends Controller
 {
     public function index()
     {
-        $guru = Auth::user()->guru;
+        $guru = Auth::user()?->guru;
+
+        if (!$guru) {
+            abort(403, 'Data guru belum tersedia.');
+        }
+
         $mengajarIds = Mengajar::where('guru_id', $guru->id)->pluck('id');
 
         $jadwal = Jadwal::with(['mengajar.mapel', 'mengajar.kelas'])

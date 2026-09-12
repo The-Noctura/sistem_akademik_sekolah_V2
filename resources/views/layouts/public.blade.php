@@ -31,15 +31,30 @@
                 <a href="{{ route('public.home') }}" class="px-3 py-2 rounded-lg {{ request()->routeIs('public.home') ? 'bg-slate-900 text-white' : 'hover:bg-slate-100' }}">Beranda</a>
                 <a href="{{ route('public.about') }}" class="px-3 py-2 rounded-lg {{ request()->routeIs('public.about') ? 'bg-slate-900 text-white' : 'hover:bg-slate-100' }}">Profil</a>
                 <a href="{{ route('public.programs') }}" class="px-3 py-2 rounded-lg {{ request()->routeIs('public.programs') ? 'bg-slate-900 text-white' : 'hover:bg-slate-100' }}">Program Keahlian</a>
+                <a href="{{ route('public.tefa') }}" class="px-3 py-2 rounded-lg {{ request()->routeIs('public.tefa') ? 'bg-emerald-600 text-white font-semibold' : 'text-emerald-700 bg-emerald-50 hover:bg-emerald-100 font-semibold' }}">
+                    <i class="ti ti-shopping-bag text-sm mr-1"></i> Produk TEFA
+                </a>
                 <a href="{{ route('public.facilities') }}" class="px-3 py-2 rounded-lg {{ request()->routeIs('public.facilities') ? 'bg-slate-900 text-white' : 'hover:bg-slate-100' }}">Fasilitas</a>
-                <a href="{{ route('public.news') }}" class="px-3 py-2 rounded-lg {{ request()->routeIs('public.news') ? 'bg-slate-900 text-white' : 'hover:bg-slate-100' }}">Berita</a>
+                <a href="{{ route('public.news') }}" class="px-3 py-2 rounded-lg {{ request()->routeIs('public.news') || request()->routeIs('public.news*') ? 'bg-slate-900 text-white' : 'hover:bg-slate-100' }}">Berita</a>
                 <a href="{{ route('public.contact') }}" class="px-3 py-2 rounded-lg {{ request()->routeIs('public.contact') ? 'bg-slate-900 text-white' : 'hover:bg-slate-100' }}">Kontak</a>
             </nav>
 
             <div class="flex items-center gap-2">
-                <a href="{{ route('login') }}" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-accent text-white text-sm font-medium hover:bg-accent-hover transition">
-                    <i class="ti ti-login"></i> Sistem Akademik
-                </a>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-700 hover:bg-slate-50 transition">
+                        <i class="ti ti-layout-dashboard"></i> Dashboard
+                    </a>
+                    <form method="POST" action="{{ route('logout') }}" class="hidden sm:block">
+                        @csrf
+                        <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-500 text-white text-sm font-medium hover:bg-rose-600 transition">
+                            <i class="ti ti-logout"></i> Logout
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-accent text-white text-sm font-medium hover:bg-accent-hover transition">
+                        <i class="ti ti-login"></i> Sistem Akademik
+                    </a>
+                @endauth
                 {{-- Mobile hamburger --}}
                 <button onclick="document.getElementById('mobileMenu').classList.toggle('hidden')" class="lg:hidden p-2 rounded-lg border border-slate-200">
                     <i class="ti ti-menu-2 text-lg"></i>
@@ -52,10 +67,19 @@
                 <a href="{{ route('public.home') }}" class="px-3 py-2.5 rounded-xl hover:bg-slate-100">Beranda</a>
                 <a href="{{ route('public.about') }}" class="px-3 py-2.5 rounded-xl hover:bg-slate-100">Profil Sekolah</a>
                 <a href="{{ route('public.programs') }}" class="px-3 py-2.5 rounded-xl hover:bg-slate-100">Program Keahlian (9 Jurusan)</a>
+                <a href="{{ route('public.tefa') }}" class="px-3 py-2.5 rounded-xl bg-emerald-50 text-emerald-800 font-semibold hover:bg-emerald-100">🛍️ Katalog Produk TEFA</a>
                 <a href="{{ route('public.facilities') }}" class="px-3 py-2.5 rounded-xl hover:bg-slate-100">Fasilitas</a>
                 <a href="{{ route('public.news') }}" class="px-3 py-2.5 rounded-xl hover:bg-slate-100">Berita & PPDB</a>
                 <a href="{{ route('public.contact') }}" class="px-3 py-2.5 rounded-xl hover:bg-slate-100">Kontak</a>
-                <a href="{{ route('login') }}" class="mt-2 inline-flex justify-center items-center gap-2 px-4 py-2.5 rounded-xl bg-accent text-white font-medium">Masuk Sistem Akademik</a>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="mt-2 inline-flex justify-center items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-medium">Dashboard</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="mt-1 inline-flex justify-center items-center gap-2 w-full px-4 py-2.5 rounded-xl bg-rose-500 text-white font-medium">Logout</button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="mt-2 inline-flex justify-center items-center gap-2 px-4 py-2.5 rounded-xl bg-accent text-white font-medium">Masuk Sistem Akademik</a>
+                @endauth
             </nav>
         </div>
     </header>

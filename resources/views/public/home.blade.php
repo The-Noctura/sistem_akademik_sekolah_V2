@@ -168,6 +168,59 @@
     </div>
 </section>
 
+{{-- Produk Teaching Factory (TEFA) Showcase --}}
+@if(isset($tefaProducts) && $tefaProducts->count() > 0)
+<section class="py-14 bg-emerald-950 text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-emerald-950 via-slate-900 to-teal-950 opacity-95"></div>
+    <div class="max-w-7xl mx-auto px-4 relative z-10">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-8 reveal">
+            <div>
+                <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-emerald-400">
+                    <span class="w-6 h-[1.5px] bg-emerald-400 rounded-full"></span> TEACHING FACTORY (TEFA)
+                </div>
+                <h2 class="text-2xl md:text-3xl font-bold tracking-tight mt-2">Produk & Layanan Unggulan Siswa</h2>
+                <p class="text-sm text-slate-300 mt-1">Hasil karya nyata kejuruan standar industri — siap dipesan via WhatsApp.</p>
+            </div>
+            <a href="{{ route('public.tefa') }}" class="text-sm font-semibold text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1.5 transition">
+                Lihat Semua Produk TEFA <i class="ti ti-arrow-right text-xs"></i>
+            </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            @foreach($tefaProducts as $i => $tp)
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden flex flex-col justify-between hover:bg-white/15 transition-all duration-300 group">
+                    <div>
+                        <div class="relative h-44 bg-slate-800 overflow-hidden">
+                            @if($tp->foto)
+                                <img src="{{ str_starts_with($tp->foto, 'http') ? $tp->foto : asset('storage/' . $tp->foto) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center text-slate-500">
+                                    <i class="ti ti-shopping-bag text-3xl"></i>
+                                </div>
+                            @endif
+                            <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase bg-slate-900/80 text-white backdrop-blur">
+                                {{ $tp->jurusan_code }}
+                            </span>
+                        </div>
+                        <div class="p-4">
+                            <span class="text-[11px] font-semibold text-emerald-400 capitalize block">{{ $tp->kategori }} &bull; {{ $tp->jurusan_name }}</span>
+                            <h3 class="font-bold text-sm text-white line-clamp-1 mt-1">{{ $tp->nama_produk }}</h3>
+                            <p class="text-xs text-slate-300 line-clamp-2 mt-1.5">{{ $tp->deskripsi }}</p>
+                        </div>
+                    </div>
+                    <div class="p-4 pt-0 border-t border-white/10 mt-2 flex items-center justify-between">
+                        <span class="font-bold text-sm text-emerald-300 font-mono">{{ $tp->formatted_harga }}</span>
+                        <a href="{{ $tp->whatsapp_url }}" target="_blank" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold inline-flex items-center gap-1 transition shadow">
+                            <i class="ti ti-brand-whatsapp text-sm"></i> Pesan
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
 {{-- Sambutan Kepala Sekolah --}}
 <section class="py-14 bg-slate-900 text-white relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-cyan-500/10"></div>
@@ -210,16 +263,31 @@
         </div>
         <div class="grid md:grid-cols-3 gap-6">
             @foreach($news as $i=>$n)
+            @php
+                $isModel = $n instanceof \App\Models\Berita;
+                $title = $isModel ? $n->judul : ($n['title'] ?? '');
+                $cat = $isModel ? $n->kategori : ($n['cat'] ?? 'Umum');
+                $date = $isModel ? $n->created_at->format('d M Y') : ($n['date'] ?? '');
+                $excerpt = $isModel ? $n->ringkasan : ($n['excerpt'] ?? '');
+                $thumb = $isModel ? ($n->thumbnail ? (str_starts_with($n->thumbnail, 'http') ? $n->thumbnail : asset('storage/' . $n->thumbnail)) : '/images/lapang.webp') : ($n['img'] ?? '/images/lapang.webp');
+                $readUrl = $isModel ? route('public.news.show', $n->slug) : route('public.news');
+            @endphp
             <article class="reveal bg-white rounded-2xl overflow-hidden border border-slate-200 hover-lift group" style="transition-delay: {{ $i*80 }}ms">
                 <div class="overflow-hidden relative">
                     <img src="{{ $n['img'] }}" class="w-full h-44 object-cover img-zoom">
                     <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur text-xs font-semibold border shadow-sm">{{ $n['cat'] }}</span>
+                    <img src="{{ $thumb }}" class="w-full h-44 object-cover img-zoom">
+                    <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur text-xs font-semibold border shadow-sm">{{ $cat }}</span>
                 </div>
                 <div class="p-5">
                     <div class="text-xs text-slate-500">{{ $n['date'] }}</div>
                     <h3 class="font-semibold mt-1 leading-tight line-clamp-2 group-hover:text-accent transition">{{ $n['title'] }}</h3>
                     <p class="text-sm text-slate-500 mt-1 line-clamp-2">{{ $n['excerpt'] }}</p>
                     <a href="{{ route('public.news') }}" class="mt-3 inline-flex text-sm font-medium text-accent gap-1 items-center">Baca <i class="ti ti-arrow-right text-xs"></i></a>
+                    <div class="text-xs text-slate-500">{{ $date }}</div>
+                    <h3 class="font-semibold mt-1 leading-tight line-clamp-2 group-hover:text-accent transition">{{ $title }}</h3>
+                    <p class="text-sm text-slate-500 mt-1 line-clamp-2">{{ $excerpt }}</p>
+                    <a href="{{ $readUrl }}" class="mt-3 inline-flex text-sm font-medium text-accent gap-1 items-center">Baca <i class="ti ti-arrow-right text-xs"></i></a>
                 </div>
             </article>
             @endforeach
