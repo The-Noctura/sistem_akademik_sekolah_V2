@@ -28,7 +28,7 @@ class MengajarController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'guru_id' => [
                 'required',
                 'exists:guru,id',
@@ -46,7 +46,7 @@ class MengajarController extends Controller
             'guru_id.unique' => 'Kombinasi guru, mata pelajaran, kelas, tahun ajaran, dan semester sudah ada.',
         ]);
 
-        Mengajar::create($request->all());
+        Mengajar::create($validated);
 
         return redirect()->route('admin.mengajar.index')->with('success', 'Data mengajar berhasil ditambahkan.');
     }
@@ -61,7 +61,7 @@ class MengajarController extends Controller
 
     public function update(Request $request, Mengajar $mengajar)
     {
-        $request->validate([
+        $validated = $request->validate([
             'guru_id' => [
                 'required',
                 'exists:guru,id',
@@ -80,7 +80,7 @@ class MengajarController extends Controller
             'guru_id.unique' => 'Kombinasi guru, mata pelajaran, kelas, tahun ajaran, dan semester sudah ada.',
         ]);
 
-        $mengajar->update($request->all());
+        $mengajar->update($validated);
 
         return redirect()->route('admin.mengajar.index')->with('success', 'Data mengajar berhasil diupdate.');
     }
