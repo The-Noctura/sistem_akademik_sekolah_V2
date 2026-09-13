@@ -8,10 +8,17 @@ use Illuminate\Http\Request;
 
 class MapelController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $mapel = Mapel::aktif()->latest()->paginate(15);
-        return view('admin.mapel.index', compact('mapel'));
+        $status = $request->query('status');
+        $query = Mapel::query();
+        
+        if ($status === 'aktif' || $status === 'nonaktif') {
+            $query->where('status', $status);
+        }
+        
+        $mapel = $query->latest()->paginate(15)->withQueryString();
+        return view('admin.mapel.index', compact('mapel', 'status'));
     }
 
     public function create()
@@ -24,6 +31,7 @@ class MapelController extends Controller
         $validated = $request->validate([
             'nama_mapel' => 'required|string|max:255',
             'kode_mapel' => 'required|string|max:255',
+            'status' => 'required|in:aktif,nonaktif',
         ]);
 
         Mapel::create($validated);
@@ -41,6 +49,7 @@ class MapelController extends Controller
         $validated = $request->validate([
             'nama_mapel' => 'required|string|max:255',
             'kode_mapel' => 'required|string|max:255',
+            'status' => 'required|in:aktif,nonaktif',
         ]);
 
         $mapel->update($validated);
@@ -50,7 +59,9 @@ class MapelController extends Controller
 
     public function destroy(Mapel $mapel)
     {
-        $mapel->update(['status' => 'nonaktif']);
-        return redirect()->route('admin.mapel.index')->with('success', 'Mata pelajaran dinonaktifkan.');
+        $newStatus = $mapel->status === 'aktif' ? 'nonaktif' : 'aktif';
+        $mapel->update(['status' => $newStatus]);
+        $pesan = $newStatus === 'nonaktif' ? 'Mata pelajaran dinonaktifkan.' : 'Mata pelajaran diaktifkan kembali.';
+        return redirect()->route('admin.mapel.index')->with('success', $pesan);
     }
 }
