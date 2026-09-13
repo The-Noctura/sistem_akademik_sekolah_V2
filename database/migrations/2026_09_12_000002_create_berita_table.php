@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->string('slug')->unique();
-            $table->string('kategori', 50)->default('Umum'); // Prestasi, PPDB, Kerjasama, Akademik, Kegiatan
+            $table->string('kategori', 50)->default('Umum'); // Prestasi, Kerjasama, Akademik, Kegiatan, Umum
             $table->string('thumbnail')->nullable();
             $table->text('ringkasan')->nullable();
             $table->longText('konten');
