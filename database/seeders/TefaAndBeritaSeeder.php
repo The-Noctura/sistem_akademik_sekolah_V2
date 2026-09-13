@@ -116,16 +116,6 @@ class TefaAndBeritaSeeder extends Seeder
                 'views'     => 142,
             ],
             [
-                'judul'     => 'Penerimaan Peserta Didik Baru (PPDB) 2026/2027 Resmi Dibuka',
-                'slug'      => 'ppdb-2026-2027-resmi-dibuka',
-                'kategori'  => 'PPDB',
-                'thumbnail' => 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800',
-                'ringkasan' => 'Pendaftaran calon peserta didik baru untuk 17 rombongan belajar pada 9 konsentrasi keahlian unggulan.',
-                'konten'    => "Penerimaan Peserta Didik Baru (PPDB) SMKN 1 Katapang Tahun Pelajaran 2026/2027 resmi dibuka secara bertahap melalui sistem daring provinsi.\n\nTahun ini, SMKN 1 Katapang membuka kuota untuk 17 rombongan belajar yang terbagi ke dalam 9 program keahlian. Calon siswa diharapkan mempersiapkan berkas rapor serta sertifikat prestasi bagi jalur kejuaraan.",
-                'status'    => 'publikasi',
-                'views'     => 328,
-            ],
-            [
                 'judul'     => 'Perluasan Kerjasama Link & Match Industri Bersama Perusahaan BUMN',
                 'slug'      => 'perluasan-kerjasama-link-and-match-industri-bumn',
                 'kategori'  => 'Kerjasama',
