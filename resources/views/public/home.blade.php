@@ -29,7 +29,7 @@
             <div class="reveal active">
                 <div class="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full pl-2 pr-3 py-1.5 text-xs backdrop-blur">
                     <span class="w-6 h-6 rounded-full bg-emerald-400 flex items-center justify-center"><i class="ti ti-sparkles text-[12px] text-slate-900"></i></span>
-                    <span class="font-medium">PPDB 2025/2026 Dibuka</span><span class="w-1 h-1 rounded-full bg-white/50"></span><span class="text-slate-300">9 Kompetensi Keahlian</span>
+                    <span class="font-medium">9 Kompetensi Keahlian</span>
                     <span class="ml-1 w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 </div>
                 <h1 class="mt-5 text-[32px] lg:text-[48px] font-bold leading-[0.95] tracking-tight" style="font-family: Plus Jakarta Sans,sans-serif">
@@ -38,7 +38,7 @@
                 <p class="mt-4 text-slate-300 text-[15px] lg:text-lg leading-relaxed max-w-xl">SMKN 1 Katapang — Negeri Akreditasi A di Katapang, Kab. Bandung. 99 guru profesional, 740 siswa, kurikulum Merdeka + Block, link & match industri Pindad, LEN, Honda.</p>
                 <div class="mt-7 flex flex-wrap gap-3">
                     <a href="{{ route('public.programs') }}" class="group px-6 py-3 rounded-xl bg-accent hover:bg-accent-hover text-white font-semibold inline-flex items-center gap-2 transition hover:gap-3">Lihat 9 Jurusan <i class="ti ti-arrow-right transition"></i></a>
-                    <a href="{{ route('public.contact') }}" class="px-6 py-3 rounded-xl bg-white text-slate-900 font-semibold inline-flex items-center gap-2 hover:bg-slate-100 transition">Daftar PPDB <i class="ti ti-external-link text-slate-500"></i></a>
+                    <a href="{{ route('public.contact') }}" class="px-6 py-3 rounded-xl bg-white text-slate-900 font-semibold inline-flex items-center gap-2 hover:bg-slate-100 transition">Hubungi Kami <i class="ti ti-external-link text-slate-500"></i></a>
                 </div>
                 <div class="mt-6 grid grid-cols-3 gap-3 max-w-lg">
                     <div class="bg-white/10 border border-white/15 rounded-2xl p-4 text-center backdrop-blur hover:bg-white/15 transition">
@@ -257,7 +257,7 @@
         <div class="flex items-end justify-between mb-8 reveal">
             <div>
                 <h2 class="text-2xl font-bold">Berita & Agenda Terbaru</h2>
-                <p class="text-sm text-slate-500 mt-1">Update PPDB, prestasi & kerja sama industri</p>
+                <p class="text-sm text-slate-500 mt-1">Update prestasi & kerja sama industri</p>
             </div>
             <a href="{{ route('public.news') }}" class="hidden sm:inline-flex text-sm font-medium text-accent hover:underline">Lihat semua →</a>
         </div>
@@ -305,7 +305,7 @@
             <div class="absolute inset-0 opacity-20" style="background-image:radial-gradient(white 1px, transparent 1px);background-size:22px 22px"></div>
             <div class="relative">
                 <h3 class="text-2xl font-bold">Siap Bergabung dengan SMKN 1 Katapang?</h3>
-                <p class="text-blue-100 mt-1 text-sm md:text-[15px]">Daftar PPDB online atau hubungi panitia untuk konsultasi jurusan sesuai minat & peluang kerja.</p>
+                <p class="text-blue-100 mt-1 text-sm md:text-[15px]">Hubungi kami untuk konsultasi jurusan sesuai minat & peluang kerja.</p>
                 <div class="mt-3 flex items-center gap-2 text-xs text-blue-100"><i class="ti ti-check"></i> 9 kompetensi • Akreditasi A • PKL industri 4 bulan</div>
             </div>
             <div class="flex gap-3 relative shrink-0">
