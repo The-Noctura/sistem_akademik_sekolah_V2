@@ -9,6 +9,16 @@
         </div>
     </div>
 
+    <div class="flex gap-2 mb-4">
+        @php $statuses = ['' => 'Semua', 'aktif' => 'Aktif', 'nonaktif' => 'Nonaktif'] @endphp
+        @foreach($statuses as $key => $label)
+            <a href="{{ request()->url() . ($key ? '?status=' . $key : '') }}" 
+               class="px-3 py-1.5 rounded-lg text-sm font-medium {{ request()->query('status') === $key ? 'bg-accent text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200' }}">
+                {{ $label }}
+            </a>
+        @endforeach
+    </div>
+
     <x-table>
         <x-slot:head>
             <tr>
@@ -29,9 +39,11 @@
             </td>
             <td class="px-4 py-3 text-right">
                 <x-button variant="secondary" type="button" onclick="location.href='{{ route('admin.mapel.edit', $item) }}'">Edit</x-button>
-                <form method="POST" action="{{ route('admin.mapel.destroy', $item) }}" class="inline" onsubmit="return confirm('Hapus mapel ini?')">
+                <form method="POST" action="{{ route('admin.mapel.destroy', $item) }}" class="inline ml-2" onsubmit="return confirm('Apakah Anda yakin ingin mengubah status mata pelajaran ini?')">
                     @csrf @method('DELETE')
-                    <x-button variant="danger" type="submit">Hapus</x-button>
+                    <x-button variant="{{ $item->status === 'aktif' ? 'danger' : 'success' }}" type="submit">
+                        {{ $item->status === 'aktif' ? 'Nonaktifkan' : 'Aktifkan' }}
+                    </x-button>
                 </form>
             </td>
         </tr>
