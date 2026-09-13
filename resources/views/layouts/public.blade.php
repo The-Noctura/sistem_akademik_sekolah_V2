@@ -69,7 +69,7 @@
                 <a href="{{ route('public.programs') }}" class="px-3 py-2.5 rounded-xl hover:bg-slate-100">Program Keahlian (9 Jurusan)</a>
                 <a href="{{ route('public.tefa') }}" class="px-3 py-2.5 rounded-xl bg-emerald-50 text-emerald-800 font-semibold hover:bg-emerald-100">🛍️ Katalog Produk TEFA</a>
                 <a href="{{ route('public.facilities') }}" class="px-3 py-2.5 rounded-xl hover:bg-slate-100">Fasilitas</a>
-                <a href="{{ route('public.news') }}" class="px-3 py-2.5 rounded-xl hover:bg-slate-100">Berita & PPDB</a>
+                <a href="{{ route('public.news') }}" class="px-3 py-2.5 rounded-xl hover:bg-slate-100">Berita</a>
                 <a href="{{ route('public.contact') }}" class="px-3 py-2.5 rounded-xl hover:bg-slate-100">Kontak</a>
                 @auth
                     <a href="{{ route('dashboard') }}" class="mt-2 inline-flex justify-center items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-medium">Dashboard</a>
@@ -124,9 +124,9 @@
                     </ul>
                 </div>
                 <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
-                    <h4 class="text-white font-semibold">PPDB 2025/2026</h4>
-                    <p class="text-sm text-slate-400 mt-1">Pendaftaran 17 rombel untuk 9 kompetensi. Jurusan favorit: TKRO, TKJ, RPL, Broadcasting Perfilman.</p>
-                    <a href="{{ route('public.contact') }}" class="mt-3 inline-flex w-full justify-center px-4 py-2 rounded-xl bg-accent text-white text-sm font-medium">Hubungi Panitia PPDB</a>
+                    <h4 class="text-white font-semibold">Informasi Sekolah</h4>
+                    <p class="text-sm text-slate-400 mt-1">SMKN 1 Katapang — 9 Kompetensi Keahlian, Akreditasi A. Jl. Ceuri Terusan Kopo KM 13.5, Katapang, Kab. Bandung.</p>
+                    <a href="{{ route('public.contact') }}" class="mt-3 inline-flex w-full justify-center px-4 py-2 rounded-xl bg-accent text-white text-sm font-medium">Hubungi Kami</a>
                     <p class="text-xs text-slate-500 mt-2">Kepala Sekolah: Hendra Hermansah, S.Pd., M.M.</p>
                 </div>
             </div>
