@@ -20,14 +20,14 @@ class BeritaController extends Controller
         }
 
         $beritaList = $query->latest()->paginate(10)->withQueryString();
-        $kategoriList = ['Prestasi', 'PPDB', 'Kerjasama', 'Akademik', 'Kegiatan', 'Umum'];
+        $kategoriList = ['Prestasi', 'Kerjasama', 'Akademik', 'Kegiatan', 'Umum'];
 
         return view('admin.berita.index', compact('beritaList', 'kategoriList', 'kategori'));
     }
 
     public function create()
     {
-        $kategoriList = ['Prestasi', 'PPDB', 'Kerjasama', 'Akademik', 'Kegiatan', 'Umum'];
+        $kategoriList = ['Prestasi', 'Kerjasama', 'Akademik', 'Kegiatan', 'Umum'];
         return view('admin.berita.create', compact('kategoriList'));
     }
 
@@ -66,7 +66,7 @@ class BeritaController extends Controller
 
     public function edit(Berita $berita)
     {
-        $kategoriList = ['Prestasi', 'PPDB', 'Kerjasama', 'Akademik', 'Kegiatan', 'Umum'];
+        $kategoriList = ['Prestasi', 'Kerjasama', 'Akademik', 'Kegiatan', 'Umum'];
         return view('admin.berita.edit', compact('berita', 'kategoriList'));
     }
 
