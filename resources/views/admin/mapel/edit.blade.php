@@ -10,6 +10,7 @@
 
             <x-form-input name="nama_mapel" label="Nama Mapel" :value="$mapel->nama_mapel" />
             <x-form-input name="kode_mapel" label="Kode Mapel" :value="$mapel->kode_mapel" />
+            <x-form-select name="status" label="Status" :options="['aktif' => 'Aktif', 'nonaktif' => 'Nonaktif']" :value="$mapel->status" />
 
             <div class="flex justify-end gap-3 mt-6">
                 <x-button variant="secondary" type="button" onclick="history.back()">Batal</x-button>
