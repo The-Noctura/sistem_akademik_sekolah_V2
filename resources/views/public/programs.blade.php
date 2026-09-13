@@ -65,7 +65,7 @@
                 <h4 class="font-bold">Bingung pilih jurusan?</h4>
                 <p class="text-sm text-slate-500">Konsultasi minat & peluang kerja (Pindad → Mesin, LEN → Elektronika, Honda → TKRO)</p>
             </div>
-            <a href="{{ route('public.contact') }}" class="px-6 py-3 rounded-xl bg-slate-900 text-white font-medium">Konsultasi PPDB Gratis</a>
+            <a href="{{ route('public.contact') }}" class="px-6 py-3 rounded-xl bg-slate-900 text-white font-medium">Konsultasi Jurusan Gratis</a>
         </div>
     </div>
 </section>
