@@ -69,7 +69,7 @@ class PublicController extends Controller
         }
 
         $news = $query->latest()->paginate(9)->withQueryString();
-        $categories = ['Prestasi', 'PPDB', 'Kerjasama', 'Akademik', 'Kegiatan', 'Umum'];
+        $categories = ['Prestasi', 'Kerjasama', 'Akademik', 'Kegiatan', 'Umum'];
 
         return view('public.news', compact('news', 'categories', 'kategori'));
     }
@@ -310,7 +310,6 @@ class PublicController extends Controller
     {
         return [
             ['title' => 'SMKN 1 Katapang Raih Akreditasi A dari BAN-SM', 'date' => '31 Des 2018', 'cat' => 'Prestasi', 'img' => 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600', 'excerpt' => 'Komitmen mutu pendidikan vokasi diakui melalui akreditasi A (Unggul) tingkat nasional.'],
-            ['title' => 'PPDB 2025/2026 Dibuka: 9 Kompetensi Keahlian', 'date' => '15 Jun 2025', 'cat' => 'PPDB', 'img' => 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600', 'excerpt' => 'Pendaftaran online untuk 17 rombel. Jurusan favorit TKRO, TKJ, RPL & Broadcasting Perfilman.'],
             ['title' => 'Kerja Sama Industri: PKL di PT Pindad & PT LEN', 'date' => '10 Mei 2025', 'cat' => 'Kerjasama', 'img' => 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600', 'excerpt' => 'Siswa kelas XII magang industri untuk penguatan kompetensi link & match dunia kerja.'],
         ];
     }
