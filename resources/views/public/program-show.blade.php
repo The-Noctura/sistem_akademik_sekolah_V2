@@ -15,7 +15,7 @@
                 <div class="mt-3 inline-flex items-center gap-2 text-xs bg-white/10 border border-white/15 rounded-full px-3 py-1.5 backdrop-blur"><i class="ti ti-clock"></i> {{ $program['duration'] }}</div>
             </div>
             <div class="flex gap-2">
-                <a href="{{ route('public.contact') }}" class="px-5 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-white text-sm font-semibold">Daftar PPDB</a>
+                <a href="{{ route('public.contact') }}" class="px-5 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-white text-sm font-semibold">Hubungi Kami</a>
                 <a href="{{ route('public.contact') }}" class="px-5 py-2.5 rounded-xl bg-white text-slate-900 text-sm font-semibold hover:bg-slate-100">Konsultasi</a>
             </div>
         </div>
@@ -89,7 +89,7 @@
                     <div class="flex justify-between"><dt class="text-slate-500">PKL</dt><dd>4 bulan (Kelas XII)</dd></div>
                     <div class="flex justify-between"><dt class="text-slate-500">Sertifikasi</dt><dd class="text-right text-xs">LSP P1 & Industri</dd></div>
                 </dl>
-                <a href="{{ route('public.contact') }}" class="mt-5 block w-full text-center px-4 py-2.5 rounded-xl bg-accent text-white text-sm font-medium hover:bg-accent-hover">Hubungi Panitia PPDB</a>
+                <a href="{{ route('public.contact') }}" class="mt-5 block w-full text-center px-4 py-2.5 rounded-xl bg-accent text-white text-sm font-medium hover:bg-accent-hover">Hubungi Kami</a>
                 <a href="{{ route('public.programs') }}" class="mt-2 block w-full text-center px-4 py-2.5 rounded-xl border text-sm font-medium hover:bg-slate-50">Lihat 9 Jurusan Lain</a>
             </div>
 
