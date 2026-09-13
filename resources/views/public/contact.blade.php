@@ -5,7 +5,7 @@
     <div class="max-w-7xl mx-auto px-4">
         <div class="text-xs tracking-widest text-sky-300 font-semibold">KONTAK KAMI</div>
         <h1 class="text-3xl font-bold mt-2">Hubungi SMKN 1 Katapang</h1>
-        <p class="text-slate-300 mt-2">PPDB, kerjasama industri, atau informasi akademik.</p>
+        <p class="text-slate-300 mt-2">Kerjasama industri, atau informasi akademik.</p>
     </div>
 </section>
 <section class="py-10">
@@ -47,7 +47,6 @@
                     <div>
                         <label class="text-sm font-medium">Keperluan</label>
                         <select class="mt-1 w-full border rounded-xl px-3 py-2.5 text-sm">
-                            <option>PPDB 2025/2026</option>
                             <option>Kerjasama Industri / PKL</option>
                             <option>Informasi Akademik</option>
                             <option>Lainnya</option>
