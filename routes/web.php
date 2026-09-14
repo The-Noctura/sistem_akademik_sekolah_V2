@@ -59,5 +59,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('nilai', [\App\Http\Controllers\Siswa\NilaiController::class, 'index'])->name('nilai.index');
     Route::get('absensi', [\App\Http\Controllers\Siswa\AbsensiController::class, 'index'])->name('absensi.index');
     Route::get('jadwal', [\App\Http\Controllers\Siswa\JadwalController::class, 'index'])->name('jadwal.index');
+    Route::get('nilai-mandiri', [\App\Http\Controllers\Siswa\NilaiMandiriController::class, 'index'])->name('nilai-mandiri.index');
+    Route::get('nilai-mandiri/create', [\App\Http\Controllers\Siswa\NilaiMandiriController::class, 'create'])->name('nilai-mandiri.create');
+    Route::post('nilai-mandiri', [\App\Http\Controllers\Siswa\NilaiMandiriController::class, 'store'])->name('nilai-mandiri.store');
+    Route::get('nilai-mandiri/{id}/edit', [\App\Http\Controllers\Siswa\NilaiMandiriController::class, 'edit'])->name('nilai-mandiri.edit');
+    Route::put('nilai-mandiri/{id}', [\App\Http\Controllers\Siswa\NilaiMandiriController::class, 'update'])->name('nilai-mandiri.update');
+    Route::delete('nilai-mandiri/{id}', [\App\Http\Controllers\Siswa\NilaiMandiriController::class, 'destroy'])->name('nilai-mandiri.destroy');
   });
 });

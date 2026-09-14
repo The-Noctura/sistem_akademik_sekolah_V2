@@ -14,5 +14,6 @@
         <x-menu-card href="{{ route('siswa.nilai.index') }}" icon="file-text" title="Lihat Nilai" description="Lihat nilai per mata pelajaran" />
         <x-menu-card href="{{ route('siswa.absensi.index') }}" icon="calendar" title="Lihat Absensi" description="Lihat rekap kehadiran Anda" />
         <x-menu-card href="{{ route('siswa.jadwal.index') }}" icon="clock" title="Lihat Jadwal" description="Lihat jadwal pelajaran kelas Anda" />
+        <x-menu-card href="{{ route('siswa.nilai-mandiri.index') }}" icon="trending-up" title="Nilai Raport Mandiri" description="Input dan lihat nilai raport Anda" />
     </div>
 @endsection
