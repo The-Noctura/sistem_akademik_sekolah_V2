@@ -45,5 +45,70 @@ class NilaiMandiriSiswa extends Model
 
         return $nilaiCount > 0;
     }
+
+    public static function getDistribusiAkreditasi($siswaId)
+    {
+        $nilai = self::where('siswa_id', $siswaId)->get();
+
+        if ($nilai->isEmpty()) {
+            return [
+                'A+' => 0,
+                'A' => 0,
+                'B' => 0,
+                'C' => 0,
+                'D' => 0,
+                'total' => 0,
+            ];
+        }
+
+        $distribusi = [
+            'A+' => 0,
+            'A' => 0,
+            'B' => 0,
+            'C' => 0,
+            'D' => 0,
+        ];
+
+        foreach ($nilai as $item) {
+            if ($item->nilai >= 90) {
+                $distribusi['A+']++;
+            } elseif ($item->nilai >= 80) {
+                $distribusi['A']++;
+            } elseif ($item->nilai >= 70) {
+                $distribusi['B']++;
+            } elseif ($item->nilai >= 60) {
+                $distribusi['C']++;
+            } else {
+                $distribusi['D']++;
+            }
+        }
+
+        $distribusi['total'] = $nilai->count();
+
+        return $distribusi;
+    }
+
+    public static function getPersentaseAkreditasi($siswaId)
+    {
+        $distribusi = self::getDistribusiAkreditasi($siswaId);
+
+        if ($distribusi['total'] === 0) {
+            return [
+                'A+' => 0,
+                'A' => 0,
+                'B' => 0,
+                'C' => 0,
+                'D' => 0,
+            ];
+        }
+
+        return [
+            'A+' => round(($distribusi['A+'] / $distribusi['total']) * 100, 1),
+            'A' => round(($distribusi['A'] / $distribusi['total']) * 100, 1),
+            'B' => round(($distribusi['B'] / $distribusi['total']) * 100, 1),
+            'C' => round(($distribusi['C'] / $distribusi['total']) * 100, 1),
+            'D' => round(($distribusi['D'] / $distribusi['total']) * 100, 1),
+        ];
+    }
 }
 

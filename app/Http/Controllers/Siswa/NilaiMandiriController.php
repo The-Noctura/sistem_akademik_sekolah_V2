@@ -131,9 +131,27 @@ class NilaiMandiriController extends Controller
             'nilai' => 'required|numeric|min:0|max:100',
         ]);
 
-        $nilai->update($request->only(['nama_mapel', 'semester', 'nilai']));
+        DB::beginTransaction();
+        try {
+            $duplikat = NilaiMandiriSiswa::where('siswa_id', $siswa->id)
+                ->where('nama_mapel', $request->nama_mapel)
+                ->where('semester', $request->semester)
+                ->where('id', '!=', $id)
+                ->first();
 
-        return redirect()->route('siswa.nilai-mandiri.index')->with('success', 'Nilai raport berhasil diperbarui.');
+            if ($duplikat) {
+                DB::rollBack();
+                return back()->withErrors(['error' => 'Mata pelajaran ini sudah ada di semester ' . $request->semester]);
+            }
+
+            $nilai->update($request->only(['nama_mapel', 'semester', 'nilai']));
+            DB::commit();
+
+            return redirect()->route('siswa.nilai-mandiri.index')->with('success', 'Nilai raport berhasil diperbarui.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => 'Gagal perbarui nilai: ' . $e->getMessage()]);
+        }
     }
 
     public function destroy($id)

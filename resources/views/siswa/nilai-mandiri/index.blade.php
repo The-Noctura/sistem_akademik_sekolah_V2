@@ -92,6 +92,45 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="mt-8">
+                    <h2 class="text-lg font-bold text-slate-700 mb-4">Distribusi Akreditasi</h2>
+                    <x-card>
+                        @php
+                            $distribusi = \App\Models\NilaiMandiriSiswa::getDistribusiAkreditasi($siswa->id);
+                            $persentase = \App\Models\NilaiMandiriSiswa::getPersentaseAkreditasi($siswa->id);
+                        @endphp
+                        <div class="space-y-4">
+                            @foreach(['A+', 'A', 'B', 'C', 'D'] as $grade)
+                                @php
+                                    $count = $distribusi[$grade];
+                                    $persen = $persentase[$grade];
+                                    $colorClass = match($grade) {
+                                        'A+' => 'bg-green-500',
+                                        'A' => 'bg-green-400',
+                                        'B' => 'bg-yellow-400',
+                                        'C' => 'bg-orange-400',
+                                        'D' => 'bg-red-500',
+                                    };
+                                @endphp
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm font-semibold text-slate-700">Grade {{ $grade }}</span>
+                                        <span class="text-sm text-slate-600">{{ $count }} mapel ({{ $persen }}%)</span>
+                                    </div>
+                                    <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                                        <div class="{{ $colorClass }} h-full transition-all duration-300" style="width: {{ $persen }}%"></div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-slate-200">
+                            <p class="text-sm text-slate-600 text-center">
+                                Total {{ $distribusi['total'] }} mata pelajaran
+                            </p>
+                        </div>
+                    </x-card>
+                </div>
             @endif
         </div>
     @endif
