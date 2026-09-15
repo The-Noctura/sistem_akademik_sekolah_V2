@@ -165,6 +165,33 @@ SHOW TRIGGERS;
 
 ---
 
-**Versi Dokumentasi**: Berdasarkan `docs/01-schema.md` dan `docs/02-sql-objects.sql`
+## 9. Transaction Handling (Rollback & Commit)
+
+Penerapan `DB::beginTransaction()`, `DB::commit()`, dan `DB::rollBack()` wajib dilakukan di level **Laravel Controller** untuk operasi massal pada Nilai dan Absensi.
+
+### Mengapa dibutuhkan?
+- **Integritas Data**: Jika ada 30 siswa yang diinput nilainya dan siswa ke-25 gagal, maka 24 data sebelumnya akan ditarik kembali (rollback).
+- **Atomicity**: Menjamin operasi "semua berhasil atau semua gagal".
+
+### Implementasi pada Nilai
+```php
+DB::beginTransaction();
+try {
+    foreach ($request->nilai as $siswaId => $nilai) {
+        // Panggil procedure MySQL
+        DB::statement('CALL sp_input_nilai_kelas(?, ?, ?, ?, ?)', [...]);
+    }
+    DB::commit(); // Simpan permanen jika semua loop sukses
+} catch (\Exception $e) {
+    DB::rollBack(); // Batalkan semua jika ada satu saja yang error
+}
+```
+
+### Implementasi pada Absensi
+Meskipun absensi menggunakan Eloquent `Absensi::create()`, transaksi tetap wajib karena setiap baris yang masuk akan memicu trigger `trg_absensi_insert`. Jika satu insert gagal, seluruh rangkaian absensi hari itu harus dibatalkan.
+
+---
+
+**Versi Dokumentasi**: Berdasarkan `docs/01-schema.md`, `docs/02-sql-objects.sql`, dan `docs/03-conventions.md`
 **Status Skema**: FINAL (tidak boleh diubah)
 **Terakhir Diperbarui**: 2026-09-15
